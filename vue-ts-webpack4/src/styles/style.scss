@@ -1,0 +1,25 @@
+/**
+ * @author: wenhao.huang
+ * @date:   2018/12/20
+ * @module: style.css
+ */
+@import "normalize";
+@import "var";
+@import "mixin";
+@import "basic";
+@import "layout";
+@import "color";
+@import "text";
+@import "transition";
+
+// svg 样式
+.sn-icon {
+  font-size: 14px;
+  line-height: 1;
+  color: #333;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  overflow: hidden;
+  vertical-align: -0.15em;
+}

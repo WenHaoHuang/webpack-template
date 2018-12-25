@@ -1,0 +1,9 @@
+/**
+ * @author: wenhao.huang
+ * @date:   2018/12/20
+ */
+
+// gutter 间隔
+@mixin gutter($type:margin, $direction:top, $multiple:0) {
+  #{$type}-#{$direction}: 0.1rem * $multiple;
+}
