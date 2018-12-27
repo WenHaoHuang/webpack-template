@@ -1,9 +1,4 @@
 import Vue from 'vue'
-
-declare module '*.vue' {
-  export default Vue
-}
-
 // 全局变量设置
 declare global {}
 

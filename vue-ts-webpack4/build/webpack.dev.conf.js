@@ -5,6 +5,7 @@ const config = require('./webpack.config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const portfinder = require('portfinder')
 const chalk = require('chalk')
 
@@ -40,6 +41,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new ForkTsCheckerWebpackPlugin(),
     new FriendlyErrorsPlugin()
   ]
 })

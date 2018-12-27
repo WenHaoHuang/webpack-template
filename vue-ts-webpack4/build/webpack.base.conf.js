@@ -38,6 +38,8 @@ module.exports = {
           {
             loader: "ts-loader",
             options: {
+              transpileOnly: true,
+              happyPackMode: false,
               appendTsxSuffixTo: [/\.vue$/]
             }
           },
