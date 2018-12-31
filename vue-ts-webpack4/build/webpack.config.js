@@ -6,9 +6,9 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/Nivana.beta': {
+      '/api': {
         changeOrigin: true,
-        target: 'http://test.host.cn',
+        target: 'http://api.host.cn',
         secure: false
       }
     },
@@ -34,5 +34,9 @@ module.exports = {
     productionGzip: false,
     productionGzipExtensions: ['js', 'css'],
     bundleAnalyzerReport: false
+  },
+  dll: {
+    dir: path.resolve(__dirname, '../dll'),
+    rootDir: path.resolve(__dirname, '../')
   }
 }

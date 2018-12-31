@@ -117,6 +117,9 @@ export default class Login extends Vue {
         () => {
           this.loading = false
           this.$store.dispatch('setToken', 'accessToken')
+          this.$router.push({
+            path: '/index'
+          })
         }
       )
     })

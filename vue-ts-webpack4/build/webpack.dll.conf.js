@@ -1,14 +1,8 @@
 'use strict'
-const utils = require('./utils')
 const webpack = require('webpack')
 const config = require('./webpack.config')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const isDev = process.env.NODE_ENV !== 'production'
 
 module.exports = {
   mode: 'production',
@@ -28,7 +22,7 @@ module.exports = {
       'axios',
       'js-cookie',
       'nprogress',
-      'element-ui',
+      'element-ui'
       // 'element-ui/lib/theme-chalk/index.css'
     ]
   },
@@ -49,7 +43,7 @@ module.exports = {
         sourceMap: config.build.productionSourceMap,
         uglifyOptions: {
           warnings: false
-        },
+        }
         // chunkFilter: (chunk) => {
         //   return chunk.name !== 'vendor'
         // }
@@ -59,13 +53,13 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin([config.dll.dir], {
       root: config.dll.rootDir,
-      exclude: [],
+      exclude: []
     }),
     new webpack.DllPlugin({
       path: './dll/manifest.json',
       name: '[name]',
       context: config.dll.rootDir
-    }),
+    })
   ],
   stats: {
     colors: true,

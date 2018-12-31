@@ -15,10 +15,7 @@ const routes: any = [
   {
     name: 'home',
     path: '/index',
-    component: () => import('views/index.vue'),
-    meta: {
-      title: '首页'
-    }
+    redirect: '/system'
   }
 ]
 

@@ -6,7 +6,7 @@ const config = require('./webpack.config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
@@ -36,13 +36,24 @@ const webpackConfig = merge(baseWebpackConfig, {
   optimization: {
     nodeEnv: 'production',
     splitChunks: {
-      // chunks: 'all',
+      chunks: 'all',
       cacheGroups: {
-        vendor: {
-          test: /[\\/]node_modules[\\/](.*).js/,
+        elementUI: {
+          test: /element-ui/,
+          name: 'chunk-element-ui',
+          priority: 80
+        },
+        libs: {
+          test: /[\\/]node_modules[\\/]/,
           name: 'chunk-libs',
-          priority: -20,
-          chunks: 'all'
+          priority: 60,
+          chunks: 'initial'
+        },
+        commons: {
+          test: utils.resolve('src/components'),
+          name: 'chunk-commons',
+          priority: 50,
+          minChunks: 3
         }
       }
     },
@@ -62,7 +73,7 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   plugins: [
     // extract css into its own file
-    new ExtractTextPlugin({
+    new MiniCssExtractPlugin({
       filename: utils.assetsPath('css/[name].css?v=[hash:4]')
     }),
     new OptimizeCssAssetsPlugin({
@@ -80,11 +91,13 @@ const webpackConfig = merge(baseWebpackConfig, {
     new webpack.HashedModuleIdsPlugin(),
     new webpack.optimize.ModuleConcatenationPlugin(),
     // copy custom static assets
-    new CopyWebpackPlugin([{
-      from: path.resolve(__dirname, '../static'),
-      to: config.build.assetsSubDirectory,
-      ignore: ['.*']
-    }])
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, '../static'),
+        to: config.build.assetsSubDirectory,
+        ignore: ['.*']
+      }
+    ])
   ]
 })
 
@@ -95,9 +108,7 @@ if (config.build.productionGzip) {
     new CompressionWebpackPlugin({
       filename: '[path].gz[query]',
       algorithm: 'gzip',
-      test: new RegExp(
-        '\\.(' + config.build.productionGzipExtensions.join('|') + ')$'
-      ),
+      test: new RegExp('\\.(' + config.build.productionGzipExtensions.join('|') + ')$'),
       threshold: 10240,
       minRatio: 0.8
     })
@@ -105,8 +116,7 @@ if (config.build.productionGzip) {
 }
 
 if (config.build.bundleAnalyzerReport) {
-  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
-    .BundleAnalyzerPlugin
+  const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 

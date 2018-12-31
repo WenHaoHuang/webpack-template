@@ -1,5 +1,6 @@
 'use strict'
 const utils = require('./utils')
+const webpack = require('webpack')
 const config = require('./webpack.config')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
@@ -17,16 +18,17 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.vue', '.json', '.ts', '.tsx'],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      vue$: 'vue/dist/vue.esm.js',
       '@': utils.resolve('src'),
-      'assets': utils.resolve('src/assets'),
-      'components': utils.resolve('src/components'),
-      'styles': utils.resolve('src/styles'),
-      'views': utils.resolve('src/views')
+      assets: utils.resolve('src/assets'),
+      components: utils.resolve('src/components'),
+      styles: utils.resolve('src/styles'),
+      views: utils.resolve('src/views')
     }
   },
   module: {
-    rules: [{
+    rules: [
+      {
         test: /\.vue$/,
         loader: 'vue-loader'
       },
@@ -34,14 +36,25 @@ module.exports = {
         test: /\.tsx?$/,
         exclude: /node_modules/,
         use: [
-          'cache-loader',
-          "babel-loader",
           {
-            loader: "ts-loader",
+            loader: 'cache-loader',
             options: {
+              cacheDirectory: utils.resolve('.cache')
+            }
+          },
+          'babel-loader',
+          {
+            loader: 'thread-loader',
+            options: {
+              workers: require('os').cpus().length - 1
+            }
+          },
+          {
+            loader: 'ts-loader',
+            options: {
+              appendTsxSuffixTo: [/\.vue$/],
               transpileOnly: true,
-              happyPackMode: false,
-              appendTsxSuffixTo: [/\.vue$/]
+              happyPackMode: true
             }
           },
           {
@@ -82,6 +95,12 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
+    // 开启dll加速
+    // new webpack.DllReferencePlugin({
+    //   context: config.dll.rootDir,
+    //   name: 'vendor',
+    //   manifest: require('../dll/manifest.json')
+    // }),
     new HtmlWebpackPlugin({
       template: './src/template.html',
       filename: 'index.html',

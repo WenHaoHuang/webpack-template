@@ -5,6 +5,7 @@ const config = require('./webpack.config')
 const merge = require('webpack-merge')
 const baseWebpackConfig = require('./webpack.base.conf')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const portfinder = require('portfinder')
 const chalk = require('chalk')
 
@@ -25,24 +26,21 @@ const devWebpackConfig = merge(baseWebpackConfig, {
     host: config.dev.host,
     port: config.dev.port,
     open: config.dev.autoOpenBrowser,
-    overlay: config.dev.errorOverlay ? {
-      warnings: false,
-      errors: true
-    } : false,
+    overlay: config.dev.errorOverlay
+      ? {
+          warnings: false,
+          errors: true
+        }
+      : false,
     publicPath: config.dev.assetsPublicPath,
     proxy: config.dev.proxyTable,
     quiet: true,
     watchOptions: {
-      poll: config.dev.poll,
+      poll: config.dev.poll
     },
     disableHostCheck: true
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
-    new ForkTsCheckerWebpackPlugin(),
-    new FriendlyErrorsPlugin()
-  ]
+  plugins: [new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin(), new ForkTsCheckerWebpackPlugin(), new FriendlyErrorsPlugin()]
 })
 
 module.exports = new Promise((resolve, reject) => {
@@ -54,16 +52,18 @@ module.exports = new Promise((resolve, reject) => {
     } else {
       process.env.PORT = port
       devWebpackConfig.devServer.port = port
-      devWebpackConfig.plugins.push(new FriendlyErrorsPlugin({
-        compilationSuccessInfo: {
-          messages: [
-            chalk.gray('------------------------------------'),
-            '   Running: ' + chalk.magenta(`http://${devWebpackConfig.devServer.host}:${port}`),
-            chalk.gray('------------------------------------')
-          ]
-        },
-        onErrors: utils.createNotifierCallback()
-      }))
+      devWebpackConfig.plugins.push(
+        new FriendlyErrorsPlugin({
+          compilationSuccessInfo: {
+            messages: [
+              chalk.gray('------------------------------------'),
+              '   Running: ' + chalk.magenta(`http://${devWebpackConfig.devServer.host}:${port}`),
+              chalk.gray('------------------------------------')
+            ]
+          },
+          onErrors: utils.createNotifierCallback()
+        })
+      )
       resolve(devWebpackConfig)
     }
   })

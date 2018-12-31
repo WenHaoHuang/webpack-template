@@ -1,20 +1,18 @@
 'use strict'
 const path = require('path')
 const config = require('./webpack.config')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
-exports.resolve = (dir) => {
+exports.resolve = dir => {
   return path.join(__dirname, '..', dir)
 }
 
-exports.assetsPath = function (_path) {
-  const assetsSubDirectory = process.env.NODE_ENV === 'production' ?
-    config.build.assetsSubDirectory :
-    config.dev.assetsSubDirectory
+exports.assetsPath = function(_path) {
+  const assetsSubDirectory = process.env.NODE_ENV === 'production' ? config.build.assetsSubDirectory : config.dev.assetsSubDirectory
   return path.posix.join(assetsSubDirectory, _path)
 }
 
-exports.cssLoaders = function (options) {
+exports.cssLoaders = function(options) {
   options = options || {}
 
   const cssLoader = {
@@ -24,9 +22,28 @@ exports.cssLoaders = function (options) {
     }
   }
 
+  const postcssLoader = {
+    loader: 'postcss-loader',
+    options: {
+      sourceMap: options.sourceMap
+    }
+  }
   // generate loader string to be used with extract text plugin
   function generateLoaders(loader, loaderOptions) {
-    const loaders = [cssLoader]
+    const loaders = []
+    // Extract Css when that option is specified
+    if (options.extract) {
+      loaders.push(MiniCssExtractPlugin.loader)
+    } else {
+      loaders.push('vue-style-loader')
+    }
+
+    loaders.push(cssLoader)
+
+    if (options.usePostCSS) {
+      loaders.push(postcssLoader)
+    }
+
     if (loader) {
       loaders.push({
         loader: loader + '-loader',
@@ -36,16 +53,7 @@ exports.cssLoaders = function (options) {
       })
     }
 
-    // Extract CSS when that option is specified
-    // (which is the case during production build)
-    if (options.extract) {
-      return ExtractTextPlugin.extract({
-        use: loaders,
-        fallback: 'vue-style-loader'
-      })
-    } else {
-      return ['vue-style-loader'].concat(loaders)
-    }
+    return loaders
   }
 
   // https://vue-loader.vuejs.org/en/configurations/extract-css.html
@@ -63,7 +71,7 @@ exports.cssLoaders = function (options) {
 }
 
 // Generate loaders for standalone style files (outside of .vue)
-exports.styleLoaders = function (options) {
+exports.styleLoaders = function(options) {
   const output = []
   const loaders = exports.cssLoaders(options)
   for (const extension in loaders) {
