@@ -6,10 +6,9 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-      '/fxxf': {
+      '/api': {
         changeOrigin: true,
-        // target: 'http://test.firesec.cn:81',
-        target: 'http://47.101.219.56',
+        target: 'http://127.0.0.1',
         secure: false
       }
     },
@@ -26,9 +25,9 @@ module.exports = {
   },
   build: {
     index: 'index.html',
-    assetsRoot: path.resolve(__dirname, '../../../dist/zhxf'),
+    assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/zhxf/',
+    assetsPublicPath: '/',
     staticRoot: path.resolve(__dirname, '../static'),
     productionSourceMap: false,
     devtool: '#source-map',

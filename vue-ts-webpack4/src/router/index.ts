@@ -2,14 +2,13 @@
  * @Author: huangwenhao
  * @Date: 2018-12-26 23:25:21
  * @LastEditors: huangwenhao
- * @LastEditTime: 2019-02-19 16:30:55
+ * @LastEditTime: 2019-02-23 19:24:15
  * @Description: router控制
  */
 import Vue from 'vue'
 import Router from 'vue-router'
 import NProgress from 'nprogress' // Progress 进度条
 // import 'nprogress/nprogress.css' // Progress 进度条样式
-import store from './../store/index'
 
 Vue.use(Router)
 // NProgress Configuration
@@ -17,16 +16,15 @@ NProgress.configure({ showSpinner: false })
 
 const routes = [
   {
-    name: 'index',
     path: '/',
-    redirect: '/login'
+    redirect: '/index'
   },
   {
-    name: 'login',
-    path: '/login',
-    component: () => import('views/Login.vue'),
+    name: 'index',
+    path: '/index',
+    component: () => import('./../views/index.vue'),
     meta: {
-      title: '登录'
+      title: '首页'
     }
   },
   {
@@ -38,9 +36,8 @@ const routes = [
     }
   },
   {
-    name: 'home',
-    path: '/index',
-    redirect: '/general/message/interactive'
+    path: '*',
+    redirect: '/404'
   }
 ]
 
@@ -53,28 +50,8 @@ const router = new Router({
 router.beforeEach((to, from, next) => {
   NProgress.start()
   const title: string = to.meta && to.meta.title ? to.meta.title + ' | ' : ''
-  document.title = title + '后台管理系统'
-  // 判断本地是否有token信息
-  if (to.name === 'login') {
-    next()
-  } else if (store.getters.token) {
-    // 判断本地是否有token信息
-    if (store.state.permission.permissionList) {
-      // 如果没有permissionList
-      if (to.name && to.path === '/') {
-        next({ name: 'NoFound' })
-      } else {
-        next()
-      }
-    } else {
-      store.dispatch('setPermissionList', () => {
-        next({ ...to, replace: true })
-      })
-    }
-  } else {
-    NProgress.done()
-    next({ name: 'login' })
-  }
+  document.title = title + 'vue+ts+webpack4'
+  next()
 })
 router.afterEach(() => {
   NProgress.done() // 结束Progress

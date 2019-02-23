@@ -5,7 +5,6 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const { CheckerPlugin } = require('awesome-typescript-loader')
 const isDev = process.env.NODE_ENV !== 'production'
 
 const webpackBaseConfig = {
@@ -18,9 +17,7 @@ const webpackBaseConfig = {
       static: utils.resolve('static'),
       assets: utils.resolve('src/assets'),
       components: utils.resolve('src/components'),
-      mixins: utils.resolve('src/mixins'),
       router: utils.resolve('src/router'),
-      store: utils.resolve('src/store'),
       styles: utils.resolve('src/styles'),
       views: utils.resolve('src/views')
     }
@@ -64,7 +61,7 @@ const webpackBaseConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [utils.resolve('src'), utils.resolve('node_modules/vue-echarts-v3/src')]
+        include: [utils.resolve('src')]
       },
       {
         test: /\.(css|scss)$/,

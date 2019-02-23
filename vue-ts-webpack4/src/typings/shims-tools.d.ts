@@ -20,11 +20,7 @@ declare global {
   }
 }
 
-// iview 全局方法
+// vue 全局方法
 declare module 'vue/types/vue' {
-  interface Vue {
-    $ajax: any
-    $Cookies: any
-    $util: any
-  }
+  interface Vue {}
 }

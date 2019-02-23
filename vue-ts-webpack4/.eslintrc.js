@@ -1,9 +1,6 @@
 module.exports = {
   parser: 'typescript-eslint-parser',
   plugins: ['typescript'],
-  globals: {
-    AMap: false
-  },
   rules: {
     // @fixable 必须使用 === 或 !==，禁止使用 == 或 !=，与 null 比较时除外
     eqeqeq: [
