@@ -1,0 +1,15 @@
+@import 'var';
+
+.btn-text {
+    cursor: pointer;
+    display: inline-block;
+
+    &+.btn-text {
+        margin-left: 10px;
+    }
+
+    &.disabled {
+        cursor: default;
+        color: $gray;
+    }
+}

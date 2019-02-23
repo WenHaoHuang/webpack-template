@@ -1,0 +1,40 @@
+/**
+ * @author: wenhao.huang
+ * @date:   2018/12/20
+ * @module: scss config
+ */
+// 字体
+$fontFamily: "Helvetica Neue",
+Helvetica,
+"PingFang SC",
+"Hiragino Sans GB",
+"Microsoft YaHei",
+"微软雅黑",
+Arial,
+sans-serif;
+// 颜色名称
+$matter: #2066AD;
+$primary: #2D8CF0;
+$danger: #F56C6C;
+$warning: #FFA257;
+$success: #42B54B;
+$info: #49A3F3;
+$thead: #C5E0FC;
+$default: #141414;
+$normal: #333333;
+$gray: #999;
+$lightGray: #999999;
+$light: #F5F5F5;
+$bgColor: #fff;
+$white: #FFFFFF;
+// 菜单配置
+$menuWidth: 340px;
+$menuWidthNav:120px;
+$menuWidthSub: 220px;
+$menuBg:#252a2f;
+$menuBgHover:#192129;
+$menuHover:#00c1de;
+$menuItemHeight:48px;
+// 顶部配置
+$topHeight:48px;
+$topBg:#398dee;

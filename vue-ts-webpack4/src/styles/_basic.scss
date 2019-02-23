@@ -1,0 +1,53 @@
+/**
+ * @Author: huangwenhao
+ * @Date: 2018-12-26 23:25:21
+ * @LastEditors: huangwenhao
+ * @LastEditTime: 2019-01-29 14:59:32
+ * @Description: basic.scss
+ */
+html {
+    font-size: 50px;
+}
+
+body {
+    color: #333;
+    font-size: 0.28rem;
+    line-height: 1.42857143;
+    font-family: $fontFamily;
+    -webkit-font-smoothing: antialiased;
+}
+
+html,
+body,
+#app {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+html * {
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+}
+
+.disabled {
+    user-select: none;
+    pointer-events: none;
+}
+
+.img-responsive {
+    display: inline-block;
+    vertical-align: middle;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}

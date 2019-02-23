@@ -1,0 +1,70 @@
+{
+  // Place your global snippets here. Each snippet is defined under a snippet name and has a scope, prefix, body and
+  // description. Add comma separated ids of the languages where the snippet is applicable in the scope field. If scope
+  // is left empty or omitted, the snippet gets applied to all languages. The prefix is what is
+  // used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+  // $1, $2 for tab stops, $0 for the final cursor position, and ${1:label}, ${2:another} for placeholders.
+  // Placeholders with the same ids are connected.
+  // Example:
+  // "Print to console": {
+  // 	"scope": "javascript,typescript",
+  // 	"prefix": "log",
+  // 	"body": [
+  // 		"console.log('$1');",
+  // 		"$2"
+  // 	],
+  // 	"description": "Log output to console"
+  // }
+  "Coding to comment": {
+    "scope": "javascript,typescript",
+    "prefix": "//",
+    "body": ["/**", " * $1", " * @update by huangwenhao at $CURRENT_YEAR/$CURRENT_MONTH/$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND", " */"],
+    "description": "Coding to comment"
+  },
+  "Coding to template": {
+    "prefix": "template",
+    "body": ["<template>$1</template>$0"],
+    "description": "Coding to template"
+  },
+  "Set private": {
+    "prefix": "pri",
+    "body": ["private $1: ${2:boolean} = ${3:false}"],
+    "description": "Coding to template"
+  },
+  "Coding to ajax": {
+    "prefix": "ajax",
+    "body": ["this.\\$ajax({", "  api: '$1',", "  params: ${2:params}", "}, (response: ObjectRes) => {", "  ${3:this.lists = response.data}", "})"],
+    "description": "Coding to ajax"
+  },
+  "Coding to vue by typescript": {
+    "prefix": "vue",
+    "body": [
+      "<template>",
+      "  <article>",
+      "    <div class=\"pages-header\">",
+      "      <div class=\"bar-main\">",
+      "        barMain",
+      "      </div>",
+      "      <div class=\"bar-aside\">",
+      "        barRight",
+      "      </div>",
+      "    </div>",
+      "    <div class=\"pages-main\">",
+      "      mainContent",
+      "    </div>",
+      "  </article>",
+      "</template>",
+      "",
+      "<script lang=\"ts\">",
+      "import { Vue, Component } from 'vue-property-decorator'",
+      "",
+      "@Component",
+      "export default class ${1:PageDemo} extends Vue {",
+      "  $0",
+      "}",
+      "</script>",
+      ""
+    ],
+    "description": "Coding to vue by typescript"
+  }
+}
