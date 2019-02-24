@@ -1,0 +1,9 @@
+<div class="layout-home">
+    <div class="heroes">
+        <div class="item" [class.selected]="item === selectedHero" *ngFor="let item of heroes" (click)="onselect(item)">
+            <span>{{ item.id }}</span> {{ item.name }}
+        </div>
+    </div>
+    <app-hero-detail [selectedHero]="selectedHero"></app-hero-detail>
+    <app-messages></app-messages>
+</div>
